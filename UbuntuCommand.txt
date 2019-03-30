@@ -11,3 +11,16 @@ sudo apt-get install -y nodejs
 # install angular cli in ubuntu
 
 npm install @angular/cli -g
+
+# How to resolve the ubuntu start issue
+To update GRUB so that it passes this option to the kernel automatically on boot:
+
+Edit the file /etc/default/grub file so that the string noresume is included in the GRUB_CMDLINE_LINUX_DEFAULT line, for example:
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash noresume"
+Run this command to update GRUB:
+
+sudo update-grub
+Reboot the computer
+
+
