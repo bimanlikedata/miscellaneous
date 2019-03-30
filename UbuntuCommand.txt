@@ -1,0 +1,10 @@
+# How to remove lock icon sign from file in ubuntu
+sudo chmod 777 -R /path to the folder
+
+# How to install node js inside the ubuntu
+
+sudo su
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
