@@ -24,3 +24,18 @@ sudo update-grub
 Reboot the computer
 
 
+# How to install NIVIDIA Driver in ubuntu
+
+
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+sudo apt install nvidia-387
+ ---- check installation
+
+lsmod | grep nvidia
+
+---- Remove the nividia
+sudo apt-get purge nvidia*
+---- Remove completely the nividia 
+sudo apt-add-repository --remove ppa:graphics-drivers/ppa
+
