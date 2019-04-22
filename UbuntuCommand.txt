@@ -39,3 +39,18 @@ sudo apt-get purge nvidia*
 ---- Remove completely the nividia 
 sudo apt-add-repository --remove ppa:graphics-drivers/ppa
 
+
+# How to stop the log file exponential increase
+
+They had an overall size of ~5G (out of my 100G for /):
+journalctl --disk-usage
+The safest way to remove unessesary entries is via the journalctl:
+journalctl --vacuum-size=128M
+After that you can verify if everything is still intact:
+journalctl --verify
+The next step for me was to ensure the journal wouldn't get this large anymore. 
+the config file for the journalctl lies under /etc/systemd/journald.conf. The following entry limits the size of your journal logs:
+SystemMaxUse=128M
+Another possible way could be:
+SystemMaxFileSize=12M
+SystemMaxFiles=10
