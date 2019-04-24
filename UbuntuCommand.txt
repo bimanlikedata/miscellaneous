@@ -43,14 +43,97 @@ sudo apt-add-repository --remove ppa:graphics-drivers/ppa
 # How to stop the log file exponential increase
 
 They had an overall size of ~5G (out of my 100G for /):
+
 journalctl --disk-usage
+
 The safest way to remove unessesary entries is via the journalctl:
+
 journalctl --vacuum-size=128M
+
 After that you can verify if everything is still intact:
+
 journalctl --verify
 The next step for me was to ensure the journal wouldn't get this large anymore. 
 the config file for the journalctl lies under /etc/systemd/journald.conf. The following entry limits the size of your journal logs:
+
 SystemMaxUse=128M
+
 Another possible way could be:
+
 SystemMaxFileSize=12M
 SystemMaxFiles=10
+
+update this parameter in journal config file
+#Storage=auto
+Compress=yes
+#Seal=yes
+#SplitMode=uid
+#SyncIntervalSec=5m
+RateLimitIntervalSec=1h
+RateLimitBurst=10000
+SystemMaxUse=1M
+#SystemKeepFree=5M
+SystemMaxFileSize=1M
+SystemMaxFiles=5
+RuntimeMaxUse=5M
+#RuntimeKeepFree=5M
+RuntimeMaxFileSize=1M
+RuntimeMaxFiles=5
+#MaxRetentionSec=
+#MaxFileSec=1month
+#ForwardToSyslog=yes
+#ForwardToKMsg=no
+#ForwardToConsole=no
+#ForwardToWall=yes
+#TTYPath=/dev/console
+#MaxLevelStore=debug
+#MaxLevelSyslog=debug
+#MaxLevelKMsg=notice
+#MaxLevelConsole=info
+#MaxLevelWall=emerg
+LineMax=48K
+
+Update this in logrotate config files also
+
+cat /etc/logrotate.d/rsyslog
+/var/log/syslog
+{
+	rotate 7
+        size=5M
+	daily
+	missingok
+	notifempty
+	delaycompress
+	#compress
+	postrotate
+		invoke-rc.d rsyslog rotate >/dev/null
+	endscript
+}
+
+/var/log/mail.info
+/var/log/mail.warn
+/var/log/mail.err
+/var/log/mail.log
+/var/log/daemon.log
+/var/log/kern.log
+/var/log/auth.log
+/var/log/user.log
+/var/log/lpr.log
+/var/log/cron.log
+/var/log/rsyslog.log
+/var/log/debug
+/var/log/messages
+{
+	rotate 4
+	weekly
+	missingok
+	notifempty
+	compress
+	delaycompress
+	sharedscripts
+	postrotate
+		invoke-rc.d rsyslog rotate >/dev/null
+	endscript
+}
+
+
