@@ -1,0 +1,52 @@
+# How to remove lock icon sign from file in ubuntu
+sudo chmod 777 -R /path to the folder
+
+# How to install node js inside the ubuntu
+
+sudo su
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# install angular cli in ubuntu
+
+npm install @angular/cli -g
+
+# How to resolve the ubuntu start issue
+To update GRUB so that it passes this option to the kernel automatically on boot:
+
+Edit the file /etc/default/grub file so that the string noresume is included in the GRUB_CMDLINE_LINUX_DEFAULT line, for example:
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash noresume"
+Run this command to update GRUB:
+
+sudo update-grub
+Reboot the computer
+
+
+# How to install NIVIDIA Driver in ubuntu
+
+
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+sudo apt install nvidia-387
+ ---- check installation
+
+lsmod | grep nvidia
+
+---- Remove the nividia
+sudo apt-get purge nvidia*
+---- Remove completely the nividia 
+sudo apt-add-repository --remove ppa:graphics-drivers/ppa
+
+
+# How to stop the log file exponential increase
+
+They had an overall size of ~5G (out of my 100G for /):
+journalctl --disk-usage
+The safest way to remove unessesary entries is via the journalctl:
+journalctl --vacuum-size=128M
+After that you can verify if everything is still intact:
+journalctl --verify
+The next step for me was to ensure the journal wouldn't get this large anymore. 
+
