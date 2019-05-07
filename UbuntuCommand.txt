@@ -182,3 +182,6 @@ sudo apt-get install sublime-text
 	#test version
 	python3 -Version
 
+# How to start the Anaconda 
+ source ~/anaconda3/bin/activate root
+ anaconda-navigator
