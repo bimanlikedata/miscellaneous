@@ -185,3 +185,11 @@ sudo apt-get install sublime-text
 # How to start the Anaconda 
  source ~/anaconda3/bin/activate root
  anaconda-navigator
+
+
+
+# Uninstall a application program in ubuntu
+	apt-get --purge remove Application_program_name
+
+# Remove a non-empty directory
+	rm -rf Directory_name
